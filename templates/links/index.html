@@ -1,7 +1,25 @@
-<h1>My Link Shortener</h1>
-<hr />
-<ul>
+{% extends 'links/_base.html' %} {% block content %}
+
+<div class="px-10 mx-auto sm:w-2/3">
+  <h1 class="mb-2 text-4xl">Links</h1>
   {% for link in links %}
-  <li>{{link.name|title}} | {{link.url}}</li>
+  <div class="py-8 px-12 my-6 rounded border hover:bg-gray-50">
+    <div class="flex justify-between items-center pb-6">
+      <p class="text-2xl">{{ link.name|title }}</p>
+      <p class="py-2 px-6 bg-green-200 rounded-full">Clicks: {{link.clicks}}</p>
+    </div>
+    <div class="flex justify-between items-center">
+      <p>
+        <a class="text-blue-700 underline" href="{{link.url}}">{{link.url}}</a>
+      </p>
+      <p class="text-blue-700 underline">
+        <a target="_blank" href="{% url 'root-link' link.slug %}">
+          Open /{{link.slug}}</a
+        >
+      </p>
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
+
+{% endblock content %}
